@@ -1,0 +1,17 @@
+{
+  "name": "audiooscillator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.23.3"
+  },
+  "dependencies": {
+    "parcel": "^1.12.4"
+  }
+}
