@@ -6,13 +6,13 @@
 <html class="no-js">
     <!--<![endif]-->
     <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title></title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="./css/styles.css" />
-    </head>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/styles.b61e60ae.css">
+    <script src="/styles.b61e60ae.js"></script></head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">
@@ -26,30 +26,13 @@
                     <button type="button" id="onOff" data-muted="false">
                         Turn Off
                     </button>
-                    <input
-                        type="range"
-                        id="oscRange"
-                        name="oscRange"
-                        min="1"
-                        max="20000"
-                        value="800"
-                        step="1"
-                        oninput="oscValue.value = oscRange.value"
-                    />
+                    <input type="range" id="oscRange" name="oscRange" min="1" max="20000" value="800" step="1" oninput="oscValue.value = oscRange.value">
                     <label for="oscRange" id="oscLabel">Range</label>
-                    <output for="oscRange" name="oscValue" id="oscValue"
-                        >&nbsp;</output
-                    >
+                    <output for="oscRange" name="oscValue" id="oscValue">&nbsp;</output>
                     <label for="oscValue" id="valLabel">Hz</label>
                     <button type="button" id="oscLower">←</button>
                     <button type="button" id="oscHigher">→</button>
-                    <input
-                        id="volume"
-                        type="range"
-                        min="0"
-                        max="100"
-                        value="0"
-                    />
+                    <input id="volume" type="range" min="0" max="100" value="0">
                     <label for="volume" id="oscVolume">Volume</label>
                     <select id="wave">
                         <option value="sine">sine</option>
@@ -58,32 +41,20 @@
                         <option value="sawtooth">sawtooth</option>
                     </select>
                     <label for="wave" id="waveLabel">Function</label>
-                    <input
-                        id="detune"
-                        type="range"
-                        min="-100"
-                        max="100"
-                        value="0"
-                    />
+                    <input id="detune" type="range" min="-100" max="100" value="0">
                     <label for="detune" id="detuneLabel">Detune</label>
-                    <input type="checkbox" name="whiteNoise" id="whiteNoise" />
+                    <input type="checkbox" name="whiteNoise" id="whiteNoise">
                     <label for="detune" id="whiteNoiseLabel">White Noise</label>
-                    <input type="checkbox" name="pinkNoise" id="pinkNoise" />
+                    <input type="checkbox" name="pinkNoise" id="pinkNoise">
                     <label for="detune" id="pinkNoiseLabel">Pink Noise</label>
-                    <input type="checkbox" name="brownNoise" id="brownNoise" />
+                    <input type="checkbox" name="brownNoise" id="brownNoise">
                     <label for="detune" id="brownNoiseLabel">Brown Noise</label>
-                    <input
-                        id="noiseVolume"
-                        type="range"
-                        min="0"
-                        max="100"
-                        value="0"
-                    />
+                    <input id="noiseVolume" type="range" min="0" max="100" value="0">
                     <!-- not connected yet-->
                     <label for="noiseVolume" id="noiseVolumeLabel">Noise Volume</label>
                 </form>
             </article>
         </main>
-        <script src="./js/app.js" async defer></script>
+        <script src="/app.c3f9f951.js" async="" defer=""></script>
     </body>
 </html>

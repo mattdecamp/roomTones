@@ -1,3 +1,3 @@
 # Room Tones 🎶 
 
-A simple application made primarily to assist in measuring for standing waves in an audio recording environment.
+A simple application made to assist in measuring standing waves in an audio recording environment.
