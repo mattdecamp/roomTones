@@ -1,0 +1,16 @@
+/* Center the Slider */
+input[type=range][orient=vertical] {
+  margin: 0 auto;
+}
+
+/* Orient the slider vertically */
+input[type=range][orient=vertical],
+input[type="range"][orient=vertical]::-webkit-slider-runnable-track,
+input[type="range"][orient=vertical]::-moz-range-track
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: var(--s1);
+    height: 100%;
+    text-align:center;
+}

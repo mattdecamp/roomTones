@@ -1,0 +1,43 @@
+#container {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#oscillator {
+    max-width: 90%;
+    margin: 0 auto;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "play freq freq"
+      "etc osc buttons";
+}
+
+/* GRID Positioning */
+
+#onOff {
+  grid-area: play;
+}
+
+#output--container {
+  grid-area: freq;
+  justify-self: right;
+}
+
+#oscRange {
+  grid-area: osc;
+}
+
+#freq--buttons {
+  grid-area: buttons;
+}
+
+
+#waves--container {
+  display: flex;
+  flex-direction: column;
+}

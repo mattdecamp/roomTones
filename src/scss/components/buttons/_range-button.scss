@@ -1,0 +1,17 @@
+/* Oscillator incremental buttons */
+
+.oscAdjust {
+  display: block;
+  border: 0;
+  margin: 0;
+  width: var(--s5);
+  height: var(--s5);
+  // padding: var(--s0) var(--s2);
+  font-size: var(--s2);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: transparent;
+  border: 6px solid var(--blue);
+  border-radius: 25px;
+}

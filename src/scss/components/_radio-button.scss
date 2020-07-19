@@ -1,0 +1,49 @@
+/* Radio Button */
+
+.radio {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  margin-bottom: var(--s3);
+  padding-left: 30px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  & input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.dot {
+  position: absolute;
+  height: var(--s2);
+  width: var(--s2);
+  background-color: var(--blue);
+  border-radius: 50%;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.dot:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio input:checked ~ .dot:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio .dot:after {
+  top: 0.4rem;
+  left: 0.4rem;
+  width: var(--s0);
+  height: var(--s0);
+  border-radius: 50%;
+  background: var(--yellow);
+}

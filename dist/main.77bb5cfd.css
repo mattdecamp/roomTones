@@ -1,0 +1,304 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0; }
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0; }
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5; }
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none; }
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto; }
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block; }
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em; }
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit; }
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important; } }
+
+:root {
+  /* GLOBAL STYLES */
+  /* MODULAR SPACING */
+  --ratio: 1.35;
+  --s-5: calc(var(--s-4) / var(--ratio));
+  --s-4: calc(var(--s-3) / var(--ratio));
+  --s-3: calc(var(--s-2) / var(--ratio));
+  --s-2: calc(var(--s-1) / var(--ratio));
+  --s-1: calc(var(--s0) / var(--ratio));
+  --s0: 1rem;
+  --s1: calc(var(--s0) * var(--ratio));
+  --s2: calc(var(--s1) * var(--ratio));
+  --s3: calc(var(--s2) * var(--ratio));
+  --s4: calc(var(--s3) * var(--ratio));
+  --s5: calc(var(--s4) * var(--ratio));
+  /* COLORS */
+  --blue: #28536b;
+  --yellow: #fad038;
+  --red: #bb2828;
+  --bg: #fdfdfd; }
+
+body {
+  font-family: Helvetica, sans-serif; }
+
+label {
+  font-size: var(--s1); }
+
+#container {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+#oscillator {
+  max-width: 90%;
+  margin: 0 auto;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas: "play freq freq" "etc osc buttons"; }
+
+/* GRID Positioning */
+#onOff {
+  grid-area: play; }
+
+#output--container {
+  grid-area: freq;
+  justify-self: right; }
+
+#oscRange {
+  grid-area: osc; }
+
+#freq--buttons {
+  grid-area: buttons; }
+
+#waves--container {
+  display: flex;
+  flex-direction: column; }
+
+/* Play Button */
+.button--play {
+  border: 0;
+  margin: 0;
+  padding: var(--s0) var(--s2) var(--s-1);
+  font-size: var(--s2);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: transparent;
+  border: 6px solid var(--blue);
+  border-radius: 15px; }
+
+/* Range Slider */
+/* resets */
+input[type="range"] {
+  -webkit-appearance: none;
+  /* Hides the slider so that custom slider can be made */
+  width: 100%;
+  /* Specific width is required for Firefox. */
+  background: transparent;
+  /* Otherwise white in Chrome */ }
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; }
+
+input[type="range"]:focus {
+  outline: none;
+  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent; }
+
+/* Range Thumb Styling */
+/* Special styling for WebKit/Blink */
+input[type="range"]::-webkit-slider-thumb,
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: var(--s2);
+  width: var(--s2);
+  border-radius: 50%;
+  border: none;
+  background: var(--red);
+  cursor: pointer;
+  margin-top: -14px;
+  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ }
+
+/* All the same stuff for Firefox */
+/* All the same stuff for IE */
+input[type="range"]::-ms-thumb {
+  height: var(--s2);
+  width: var(--s2);
+  border-radius: 50%;
+  background: var(--red);
+  cursor: pointer; }
+
+/* Range slider track styles */
+input[type="range"]::-webkit-slider-runnable-track,
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: var(--s-1);
+  cursor: pointer;
+  background: var(--blue);
+  border-radius: 10px; }
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: var(--s-1);
+  cursor: pointer;
+  background: var(--blue);
+  border-radius: 10px; }
+
+input[type="range"]::-ms-fill-lower {
+  background: var(--blue);
+  border-radius: 10px; }
+
+input[type="range"]::-ms-fill-upper {
+  background: var(--blue);
+  border-radius: 10px; }
+
+/* Radio Button */
+.radio {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  margin-bottom: var(--s3);
+  padding-left: 30px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer; }
+
+.dot {
+  position: absolute;
+  height: var(--s2);
+  width: var(--s2);
+  background-color: var(--blue);
+  border-radius: 50%; }
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.dot:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+/* Show the indicator (dot/circle) when checked */
+.radio input:checked ~ .dot:after {
+  display: block; }
+
+/* Style the indicator (dot/circle) */
+.radio .dot:after {
+  top: 0.4rem;
+  left: 0.4rem;
+  width: var(--s0);
+  height: var(--s0);
+  border-radius: 50%;
+  background: var(--yellow); }
+
+/* Shortcut Button Styles */
+.shortcut {
+  display: block;
+  border: 0;
+  margin: 0;
+  width: var(--s4);
+  height: var(--s4);
+  padding: var(--s-1) 0 var(--s-1);
+  font-size: var(--s0);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: transparent;
+  border: 3px solid var(--blue);
+  border-radius: 20px; }
+
+/* Oscillator incremental buttons */
+.oscAdjust {
+  display: block;
+  border: 0;
+  margin: 0;
+  width: var(--s5);
+  height: var(--s5);
+  font-size: var(--s2);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: transparent;
+  border: 6px solid var(--blue);
+  border-radius: 25px; }
+
+/* Center the Slider */
+input[type=range][orient=vertical] {
+  margin: 0 auto; }
+
+/* Orient the slider vertically */
+input[type=range][orient=vertical],
+input[type="range"][orient=vertical]::-webkit-slider-runnable-track,
+input[type="range"][orient=vertical]::-moz-range-track {
+  writing-mode: bt-lr;
+  /* IE */
+  -webkit-appearance: slider-vertical;
+  /* WebKit */
+  width: var(--s1);
+  height: 100%;
+  text-align: center; }
+
+
+/*# sourceMappingURL=/main.77bb5cfd.css.map */

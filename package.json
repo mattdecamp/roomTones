@@ -1,17 +1,21 @@
 {
   "name": "audiooscillator",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple audio oscillator and noise machine to assist recording engineers.",
   "main": "app.js",
   "scripts": {
-    "start": "parcel index.html"
+    "autoprefixer": "postcss -u autoprefixer -r _site/css/*",
+    "scss": "node-sass --output-style compressed -o dist/css src/scss",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
-  "author": "",
+  "author": "Matt DeCamp",
   "license": "ISC",
   "devDependencies": {
     "sass": "^1.23.3"
   },
   "dependencies": {
+    "node-sass": "^4.14.1",
     "parcel": "^1.12.4"
   }
 }

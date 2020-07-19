@@ -1,0 +1,17 @@
+/* Shortcut Button Styles */
+
+.shortcut {
+  display: block;
+  border: 0;
+  margin: 0;
+  width: var(--s4);
+  height: var(--s4);
+  padding: var(--s-1) 0 var(--s-1);
+  font-size: var(--s0);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: transparent;
+  border: 3px solid var(--blue);
+  border-radius: 20px;
+}

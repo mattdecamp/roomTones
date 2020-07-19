@@ -117,214 +117,79 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/app.js":[function(require,module,exports) {
-// On load resets
-window.onload = function () {
-  document.getElementById("oscValue").value = "440";
-  document.getElementById("oscRange").value = 440;
-}; // Initialize audio
+})({"../node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-
-var audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Create oscillator
-
-var oscillator = audioContext.createOscillator();
-oscillator.type = "sine";
-oscillator.frequency.value = 440; // value in hertz
-
-oscillator.detune.setValueAtTime(0, audioContext.currentTime); // value in cents
-// Connect Gain to Oscillator
-
-var gainNode = audioContext.createGain();
-gainNode.gain.value = 0;
-oscillator.connect(gainNode);
-gainNode.connect(audioContext.destination); // Connect Gain to All three types of Noise
-
-var gainNodeNoise = audioContext.createGain();
-gainNodeNoise.gain.value = 0;
-gainNodeNoise.connect(audioContext.destination); // Start oscillator
-
-oscillator.start(); // Frequency control
-
-document.querySelector("#oscRange").addEventListener("input", function (e) {
-  oscillator.frequency.value = e.target.value;
-}); // Frequency shortcuts
-
-var shortcuts = document.getElementsByClassName("shortcut");
-console.log(shortcuts.length);
-
-var shortcutClick = function shortcutClick() {
-  var shortcutAttr = this.getAttribute("data-freq");
-  oscillator.frequency.value = shortcutAttr;
-  oscRange.value = shortcutAttr;
-  oscValue.value = shortcutAttr;
-};
-
-for (var i = 0; i < shortcuts.length; i++) {
-  shortcuts[i].addEventListener("click", shortcutClick, false);
-} // Frequency Volume control
-
-
-document.querySelector("#volume").addEventListener("input", function (e) {
-  gainNode.gain.value = e.target.value * 0.01;
-}); // Detune control
-
-document.querySelector("#detune").addEventListener("input", function (e) {
-  oscillator.detune.setValueAtTime(e.target.value, audioContext.currentTime);
-}); // change detuning when using the slider
-// Wave type selection
-//need to loop through all radio buttons and add event listener to that loop
-// document.querySelectorAll('[name="radio"').addEventListener("click", (e) => {
-//     oscillator.type = e.target.value;
-// });
-// On and Off button
-
-var onOff = document.querySelector("#onOff");
-onOff.addEventListener("click", function (e) {
-  if (onOff.getAttribute("data-muted") === "false") {
-    gainNode.disconnect(audioContext.destination);
-    gainNodeNoise.disconnect(audioContext.destination);
-    onOff.setAttribute("data-muted", "true");
-    onOff.innerHTML = "Play";
-  } else {
-    gainNode.connect(audioContext.destination);
-    gainNodeNoise.connect(audioContext.destination);
-    onOff.setAttribute("data-muted", "false");
-    onOff.innerHTML = "Stop";
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
   }
-}); // White Noise
 
-var whiteBufferSize = 2 * audioContext.sampleRate,
-    noiseBuffer = audioContext.createBuffer(1, whiteBufferSize, audioContext.sampleRate),
-    output = noiseBuffer.getChannelData(0);
-
-for (var _i = 0; _i < whiteBufferSize; _i++) {
-  output[_i] = Math.random() * 2 - 1;
+  return bundleURL;
 }
 
-var whiteNoise = audioContext.createBufferSource();
-whiteNoise.buffer = noiseBuffer;
-whiteNoise.loop = true;
-whiteNoise.volume = 0;
-whiteNoise.start(0);
-console.log(whiteNoise); // Pink Noise
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
 
-var pinkBufferSize = 4096;
-
-var pinkNoise = function () {
-  var b0, b1, b2, b3, b4, b5, b6;
-  b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
-  var node = audioContext.createScriptProcessor(pinkBufferSize, 1, 1);
-
-  node.onaudioprocess = function (e) {
-    var output = e.outputBuffer.getChannelData(0);
-
-    for (var _i2 = 0; _i2 < pinkBufferSize; _i2++) {
-      var white = Math.random() * 2 - 1;
-      b0 = 0.99886 * b0 + white * 0.0555179;
-      b1 = 0.99332 * b1 + white * 0.0750759;
-      b2 = 0.969 * b2 + white * 0.153852;
-      b3 = 0.8665 * b3 + white * 0.3104856;
-      b4 = 0.55 * b4 + white * 0.5329522;
-      b5 = -0.7616 * b5 - white * 0.016898;
-      output[_i2] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-      output[_i2] *= 0.11; // (roughly) compensate for gain
-
-      b6 = white * 0.115926;
+    if (matches) {
+      return getBaseURL(matches[0]);
     }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
   };
 
-  return node;
-}(); // Brown Noise
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
 
+var cssTimeout = null;
 
-var brownBufferSize = 4096;
-
-var brownNoise = function () {
-  var lastOut = 0.0;
-  var node = audioContext.createScriptProcessor(brownBufferSize, 1, 1);
-
-  node.onaudioprocess = function (e) {
-    var output = e.outputBuffer.getChannelData(0);
-
-    for (var _i3 = 0; _i3 < brownBufferSize; _i3++) {
-      var white = Math.random() * 2 - 1;
-      output[_i3] = (lastOut + 0.02 * white) / 1.02;
-      lastOut = output[_i3];
-      output[_i3] *= 3.5; // (roughly) compensate for gain
-    }
-  };
-
-  return node;
-}(); // Start White noise
-
-
-var whiteNoiseCheck = document.querySelector("input[name=whiteNoise]");
-whiteNoiseCheck.addEventListener("change", function () {
-  if (this.checked) {
-    // Checkbox is checked
-    whiteNoise.connect(gainNodeNoise);
-    gainNodeNoise.connect(audioContext.destination);
-  } else {
-    // Checkbox is not checked
-    whiteNoise.disconnect(gainNodeNoise);
-    gainNodeNoise.disconnect(audioContext.destination);
-  }
-}); // Start Pink noise
-
-var pinkNoiseCheck = document.querySelector("input[name=pinkNoise]");
-pinkNoiseCheck.addEventListener("change", function () {
-  if (this.checked) {
-    // Checkbox is checked
-    pinkNoise.connect(gainNodeNoise);
-    gainNodeNoise.connect(audioContext.destination);
-  } else {
-    // Checkbox is not checked
-    pinkNoise.disconnect(gainNodeNoise);
-    gainNodeNoise.disconnect(audioContext.destination);
-  }
-}); // Start Brown noise
-
-var brownNoiseCheck = document.querySelector("input[name=brownNoise]");
-brownNoiseCheck.addEventListener("change", function () {
-  if (this.checked) {
-    // Checkbox is checked
-    brownNoise.connect(gainNodeNoise);
-    gainNodeNoise.connect(audioContext.destination);
-  } else {
-    // Checkbox is not checked
-    brownNoise.disconnect(gainNodeNoise);
-    gainNodeNoise.disconnect(audioContext.destination);
-  }
-}); // Noise Volume control
-
-document.querySelector("#noiseVolume").addEventListener("input", function (e) {
-  gainNodeNoise.gain.value = e.target.value * 0.01;
-}); // Frequency button adjustment function
-
-var oscLower = document.querySelector("#oscLower");
-var oscHigher = document.querySelector("#oscHigher");
-var oscRange = document.querySelector("#oscRange");
-var oscValue = document.querySelector("#oscValue");
-oscLower.addEventListener("click", function (e) {
-  // when clicked increased the frequency level by 1
-  if (oscillator.frequency.value >= 1) {
-    oscillator.frequency.value = oscillator.frequency.value - 1;
-    oscRange.value = oscRange.value - 1;
-    oscValue.value = oscValue.value - 1;
-  } else {
-    return 1;
-  }
-});
-oscHigher.addEventListener("click", function (e) {
-  if (oscillator.frequency.value <= 20000) {
-    oscillator.frequency.value = oscillator.frequency.value + 1;
-    oscRange.value = parseInt(oscRange.value) + 1;
-    oscValue.value = parseInt(oscValue.value) + 1;
-  } else {
+function reloadCSS() {
+  if (cssTimeout) {
     return;
   }
-});
-},{}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel/src/builtins/bundle-url.js"}],"scss/main.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -528,5 +393,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel/src/builtins/hmr-runtime.js","js/app.js"], null)
-//# sourceMappingURL=/app.c3f9f951.js.map
+},{}]},{},["../node_modules/parcel/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/main.77bb5cfd.js.map

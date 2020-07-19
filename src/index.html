@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/scss/main.scss" />
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">
+                You are using an <strong>outdated</strong> browser. Please
+                <a href="#">upgrade your browser</a> to improve your experience.
+            </p>
+        <![endif]-->
+        <main>
+            <article id="container">
+                <form id="oscillator" name="oscillator">
+                    <button
+                        type="button"
+                        id="onOff"
+                        class="button--play"
+                        data-muted="false"
+                    >
+                        Stop
+                    </button>
+                    <div id="output--container">
+                        <output for="oscRange" name="oscValue" id="oscValue"
+                            >&nbsp;</output
+                        >
+                        <label for="oscValue" id="valLabel">Hz</label>
+                    </div>
+                    <input
+                        type="range"
+                        id="oscRange"
+                        name="oscRange"
+                        min="1"
+                        max="20000"
+                        value="440"
+                        step="1"
+                        oninput="oscValue.value = oscRange.value"
+                        orient="vertical"
+                    />
+                    <div id="freq--buttons">
+                        <div id="shorcuts--container">
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="30"
+                            >
+                                30
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="60"
+                            >
+                                60
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="150"
+                            >
+                                150
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="350"
+                            >
+                                350
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="500"
+                            >
+                                500
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="800"
+                            >
+                                800
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="1000"
+                            >
+                                1k
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="2000"
+                            >
+                                2k
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="4000"
+                            >
+                                4k
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="6000"
+                            >
+                                6k
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="8000"
+                            >
+                                8k
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="10000"
+                            >
+                                10k
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="12000"
+                            >
+                                12k
+                            </button>
+                            <button
+                                class="shortcut"
+                                type="button"
+                                data-freq="16000"
+                            >
+                                16k
+                            </button>
+                        </div>
+                        <div id="oscAdjust--container">
+                            <button type="button" id="oscHigher" class="oscAdjust">&uarr;</button>
+                            <button type="button" id="oscLower" class="oscAdjust">&darr;</button>
+                        </div>
+                    </div>
+                    <div id="etc">
+                        <div id="toneVolume--container">
+                            <label for="volume" id="oscVolume"
+                                >Tone Level</label
+                            >
+                            <input
+                                id="volume"
+                                type="range"
+                                min="0"
+                                max="100"
+                                value="0"
+                            />
+                        </div>
+                        <div id="detune--container">
+                            <label for="detune" id="detuneLabel">detune</label>
+                            <input
+                                id="detune"
+                                type="range"
+                                min="-100"
+                                max="100"
+                                value="0"
+                            />
+                        </div>
+                        <!--Frequency Shortcuts-->
+                        <div id="waves--container">
+                            <!-- <select id="wave">
+                                <option value="sine">sine</option>
+                                <option value="triangle">triangle</option>
+                                <option value="square">square</option>
+                                <option value="sawtooth">sawtooth</option>
+                            </select> -->
+                            <label for="wave" id="waveLabel" class="radio">Sine
+                                <input type="radio" value="sine" name="radio" checked="checked">
+                                <span class="dot"></span>
+                            </label>
+                            <label for="wave" id="waveLabel" class="radio">Triangle
+                                <input type="radio" value="triangle" name="radio" />
+                                <span class="dot"></span>
+                            </label>
+                            <label for="wave" id="waveLabel" class="radio">Square
+                                <input type="radio" value="square" name="radio" />
+                                <span class="dot"></span>
+                            </label>
+                            <label for="wave" id="waveLabel" class="radio">Sawtooth
+                                <input type="radio" value="sawtooth" name="radio" />
+                                <span class="dot"></span>
+                            </label>
+                        </div>
+                        <div id="noise--container">
+                            <label for="noise" id="waveLabel">NOISE</label>
+                            <div class="noise-item--container">
+                                <input
+                                    type="checkbox"
+                                    name="whiteNoise"
+                                    id="whiteNoise"
+                                />
+                                <label for="detune" id="whiteNoiseLabel"
+                                    >White Noise</label
+                                >
+                            </div>
+                            <div class="noise-item--container">
+                                <input
+                                    type="checkbox"
+                                    name="pinkNoise"
+                                    id="pinkNoise"
+                                />
+                                <label for="detune" id="pinkNoiseLabel"
+                                    >Pink Noise</label
+                                >
+                            </div>
+                            <div class="noise-item--container">
+                                <input
+                                    type="checkbox"
+                                    name="brownNoise"
+                                    id="brownNoise"
+                                />
+                                <label for="detune" id="brownNoiseLabel"
+                                    >Brown Noise</label
+                                >
+                            </div>
+                            <label for="noiseVolume" id="noiseVolumeLabel"
+                                >NOISE LEVEL</label
+                            >
+                            <input
+                                id="noiseVolume"
+                                type="range"
+                                min="0"
+                                max="100"
+                                value="0"
+                            />
+                        </div>
+                    </div>
+                </form>
+            </article>
+        </main>
+        <script src="./js/app.js" async defer></script>
+    </body>
+</html>

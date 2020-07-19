@@ -16,12 +16,17 @@ oscillator.type = "sine";
 oscillator.frequency.value = 440; // value in hertz
 oscillator.detune.setValueAtTime(0, audioContext.currentTime); // value in cents
 
-// Establish gain
+// Connect Gain to Oscillator
 
 const gainNode = audioContext.createGain();
 gainNode.gain.value = 0;
 oscillator.connect(gainNode);
 gainNode.connect(audioContext.destination);
+// Connect Gain to All three types of Noise
+
+const gainNodeNoise = audioContext.createGain();
+gainNodeNoise.gain.value = 0;
+gainNodeNoise.connect(audioContext.destination);
 
 // Start oscillator
 
@@ -33,7 +38,23 @@ document.querySelector("#oscRange").addEventListener("input", (e) => {
     oscillator.frequency.value = e.target.value;
 });
 
-// Volume control
+// Frequency shortcuts
+
+const shortcuts = document.getElementsByClassName("shortcut");
+console.log(shortcuts.length);
+
+const shortcutClick = function () {
+    let shortcutAttr = this.getAttribute("data-freq");
+    oscillator.frequency.value = shortcutAttr;
+    oscRange.value = shortcutAttr;
+    oscValue.value = shortcutAttr;
+};
+
+for (let i = 0; i < shortcuts.length; i++) {
+    shortcuts[i].addEventListener("click", shortcutClick, false);
+}
+
+// Frequency Volume control
 
 document.querySelector("#volume").addEventListener("input", (e) => {
     gainNode.gain.value = e.target.value * 0.01;
@@ -46,9 +67,27 @@ document.querySelector("#detune").addEventListener("input", (e) => {
 }); // change detuning when using the slider
 
 // Wave type selection
+//need to loop through all radio buttons and add event listener to that loop
+// document.querySelectorAll('[name="radio"').addEventListener("click", (e) => {
+//     oscillator.type = e.target.value;
+// });
 
-document.querySelector("#wave").addEventListener("change", (e) => {
-    oscillator.type = e.target.value;
+// On and Off button
+
+const onOff = document.querySelector("#onOff");
+
+onOff.addEventListener("click", (e) => {
+    if (onOff.getAttribute("data-muted") === "false") {
+        gainNode.disconnect(audioContext.destination);
+        gainNodeNoise.disconnect(audioContext.destination);
+        onOff.setAttribute("data-muted", "true");
+        onOff.innerHTML = "Play";
+    } else {
+        gainNode.connect(audioContext.destination);
+        gainNodeNoise.connect(audioContext.destination);
+        onOff.setAttribute("data-muted", "false");
+        onOff.innerHTML = "Stop";
+    }
 });
 
 // White Noise
@@ -67,7 +106,9 @@ for (let i = 0; i < whiteBufferSize; i++) {
 const whiteNoise = audioContext.createBufferSource();
 whiteNoise.buffer = noiseBuffer;
 whiteNoise.loop = true;
+whiteNoise.volume = 0;
 whiteNoise.start(0);
+console.log(whiteNoise);
 
 // Pink Noise
 
@@ -112,17 +153,20 @@ const brownNoise = (function () {
     return node;
 })();
 
+
 // Start White noise
 
 const whiteNoiseCheck = document.querySelector("input[name=whiteNoise]");
 
 whiteNoiseCheck.addEventListener("change", function () {
     if (this.checked) {
-        // Checkbox is checked..
-        whiteNoise.connect(audioContext.destination);
+        // Checkbox is checked
+        whiteNoise.connect(gainNodeNoise);
+        gainNodeNoise.connect(audioContext.destination);
     } else {
-        // Checkbox is not checked..
-        whiteNoise.disconnect(audioContext.destination);
+        // Checkbox is not checked
+        whiteNoise.disconnect(gainNodeNoise);
+        gainNodeNoise.disconnect(audioContext.destination);
     }
 });
 
@@ -132,11 +176,13 @@ const pinkNoiseCheck = document.querySelector("input[name=pinkNoise]");
 
 pinkNoiseCheck.addEventListener("change", function () {
     if (this.checked) {
-        // Checkbox is checked..
-        pinkNoise.connect(audioContext.destination);
+        // Checkbox is checked
+        pinkNoise.connect(gainNodeNoise);
+        gainNodeNoise.connect(audioContext.destination);
     } else {
-        // Checkbox is not checked..
-        pinkNoise.disconnect(audioContext.destination);
+        // Checkbox is not checked
+        pinkNoise.disconnect(gainNodeNoise);
+        gainNodeNoise.disconnect(audioContext.destination);
     }
 });
 
@@ -146,29 +192,23 @@ const brownNoiseCheck = document.querySelector("input[name=brownNoise]");
 
 brownNoiseCheck.addEventListener("change", function () {
     if (this.checked) {
-        // Checkbox is checked..
-        brownNoise.connect(audioContext.destination);
+        // Checkbox is checked
+        brownNoise.connect(gainNodeNoise);
+        gainNodeNoise.connect(audioContext.destination);
     } else {
-        // Checkbox is not checked..
-        brownNoise.disconnect(audioContext.destination);
+        // Checkbox is not checked
+        brownNoise.disconnect(gainNodeNoise);
+        gainNodeNoise.disconnect(audioContext.destination);
     }
 });
 
-// On and Off button
 
-const onOff = document.querySelector("#onOff");
+// Noise Volume control
 
-onOff.addEventListener("click", (e) => {
-    if (onOff.getAttribute("data-muted") === "false") {
-        gainNode.disconnect(audioContext.destination);
-        onOff.setAttribute("data-muted", "true");
-        onOff.innerHTML = "Turn On";
-    } else {
-        gainNode.connect(audioContext.destination);
-        onOff.setAttribute("data-muted", "false");
-        onOff.innerHTML = "Turn Off";
-    }
+document.querySelector("#noiseVolume").addEventListener("input", (e) => {
+    gainNodeNoise.gain.value = e.target.value * 0.01;
 });
+
 
 // Frequency button adjustment function
 
@@ -192,7 +232,7 @@ oscHigher.addEventListener("click", (e) => {
     if (oscillator.frequency.value <= 20000) {
         oscillator.frequency.value = oscillator.frequency.value + 1;
         oscRange.value = parseInt(oscRange.value) + 1;
-        oscValue.value = parseInt(oscValue.value) + 1; 
+        oscValue.value = parseInt(oscValue.value) + 1;
     } else {
         return;
     }
