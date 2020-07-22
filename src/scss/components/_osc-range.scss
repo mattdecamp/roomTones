@@ -1,16 +1,25 @@
 /* Center the Slider */
-input[type=range][orient=vertical] {
-  margin: 0 auto;
+input[type="range"][orient="vertical"] {
+    margin: 0 auto;
 }
 
 /* Orient the slider vertically */
-input[type=range][orient=vertical],
-input[type="range"][orient=vertical]::-webkit-slider-runnable-track,
-input[type="range"][orient=vertical]::-moz-range-track
-{
+input[type="range"][orient="vertical"],
+input[type="range"][orient="vertical"]::-webkit-slider-runnable-track,
+input[type="range"][orient="vertical"]::-moz-range-track {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* WebKit */
-    width: var(--s1);
+    width: var(--s0);
     height: 100%;
-    text-align:center;
+    text-align: center;
+}
+
+input[type="range"][orient="vertical"]::-webkit-slider-thumb,
+input[type="range"][orient="vertical"]::-moz-range-thumb {
+    height: var(--s3);
+    width: var(--s3);
+}
+input[type="range"][orient="vertical"]::-ms-thumb {
+    height: var(--s3);
+    width: var(--s3);
 }

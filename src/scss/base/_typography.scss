@@ -1,7 +1,18 @@
 body {
   font-family: Helvetica, sans-serif;
+  font-size: var(--s0);
+  font-weight: 200;
+  color: var(--blue);
 }
 
 label{
+  font-size: 1.2rem;
+}
+
+.heading {
   font-size: var(--s1);
+  font-weight: 600;
+  // letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  margin-bottom: var(--s0);
 }

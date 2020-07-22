@@ -1,0 +1,60 @@
+.noise-item--container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: var(--s4);
+    height: var(--s2);
+
+    & input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    border: 1px solid var(--blue);
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+
+    &:before {
+        position: absolute;
+        content: "";
+        height: var(--s1);
+        width: var(--s1);
+        left: 0.25rem;
+        bottom: 0.18rem;
+        background: var(--yellow);
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+    }
+}
+
+input:checked + .slider {
+    background-color: var(--blue);
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(var(--s2));
+    -ms-transform: translateX(var(--s2));
+    transform: translateX(var(--s1));
+}
+
+.slider {
+    border-radius: 34px;
+}
+
+.slider:before {
+    border-radius: 50%;
+}

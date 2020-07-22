@@ -5,13 +5,13 @@
   margin: 0;
   // width: 150px;
   // line-height: 25px;
-  padding: var(--s0) var(--s2) var(--s-1);
-  font-size: var(--s2);
+  padding: var(--s0) var(--s2) var(--s-2);
+  font-size: 1.6rem;
   font-weight: 600;
   text-transform: uppercase;
   
   color: var(--blue);
   background: transparent;
-  border: 6px solid var(--blue);
+  border: 5px solid var(--blue);
   border-radius: 15px;
 }
