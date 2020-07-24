@@ -4,7 +4,7 @@ main {
   align-items: center;
 }
 #container {
-  height: auto;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ main {
     grid-template-areas:
       "play freq freq"
       "etc osc buttons";
-    gap: var(--s-2);
+    gap: var(--s0) var(--s-2);
 }
 
 /* GRID Positioning */
@@ -41,6 +41,8 @@ main {
 
 #freq--buttons {
   grid-area: buttons;
+  display: grid;
+  gap: 1rem;
 }
 
 // #shortcuts--container {
@@ -56,7 +58,6 @@ main {
 
 #etc {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  gap: 1rem;
 }

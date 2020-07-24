@@ -68,6 +68,18 @@ document.querySelector("#detune").addEventListener("input", (e) => {
 
 // Wave type selection
 //need to loop through all radio buttons and add event listener to that loop
+// const radioButtons = document.querySelectorAll('input[type="radio"]');
+// for (let i = 0; i < radioButtons.length; i++) {
+//     console.log(radioButtons[i]);
+// }
+const radioButtons = document.querySelectorAll(
+    'input[type=radio][name = "radio"]'
+);
+console.log(radioButtons);
+radioButtons.forEach((radio) =>
+    radio.addEventListener("change", () => (oscillator.type = radio.value))
+);
+
 // document.querySelectorAll('[name="radio"').addEventListener("click", (e) => {
 //     oscillator.type = e.target.value;
 // });
@@ -108,7 +120,6 @@ whiteNoise.buffer = noiseBuffer;
 whiteNoise.loop = true;
 whiteNoise.volume = 0;
 whiteNoise.start(0);
-console.log(whiteNoise);
 
 // Pink Noise
 
@@ -153,7 +164,6 @@ const brownNoise = (function () {
     return node;
 })();
 
-
 // Start White noise
 
 const whiteNoiseCheck = document.querySelector("input[name=whiteNoise]");
@@ -162,11 +172,11 @@ whiteNoiseCheck.addEventListener("change", function () {
     if (this.checked) {
         // Checkbox is checked
         whiteNoise.connect(gainNodeNoise);
-        gainNodeNoise.connect(audioContext.destination);
+        // gainNodeNoise.connect(audioContext.destination);
     } else {
         // Checkbox is not checked
         whiteNoise.disconnect(gainNodeNoise);
-        gainNodeNoise.disconnect(audioContext.destination);
+        // gainNodeNoise.disconnect(audioContext.destination);
     }
 });
 
@@ -178,11 +188,11 @@ pinkNoiseCheck.addEventListener("change", function () {
     if (this.checked) {
         // Checkbox is checked
         pinkNoise.connect(gainNodeNoise);
-        gainNodeNoise.connect(audioContext.destination);
+        // gainNodeNoise.connect(audioContext.destination);
     } else {
         // Checkbox is not checked
         pinkNoise.disconnect(gainNodeNoise);
-        gainNodeNoise.disconnect(audioContext.destination);
+        // gainNodeNoise.disconnect(audioContext.destination);
     }
 });
 
@@ -194,21 +204,19 @@ brownNoiseCheck.addEventListener("change", function () {
     if (this.checked) {
         // Checkbox is checked
         brownNoise.connect(gainNodeNoise);
-        gainNodeNoise.connect(audioContext.destination);
+        // gainNodeNoise.connect(audioContext.destination);
     } else {
         // Checkbox is not checked
         brownNoise.disconnect(gainNodeNoise);
-        gainNodeNoise.disconnect(audioContext.destination);
+        // gainNodeNoise.disconnect(audioContext.destination);
     }
 });
-
 
 // Noise Volume control
 
 document.querySelector("#noiseVolume").addEventListener("input", (e) => {
     gainNodeNoise.gain.value = e.target.value * 0.01;
 });
-
 
 // Frequency button adjustment function
 

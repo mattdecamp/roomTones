@@ -173,7 +173,18 @@ document.querySelector("#detune").addEventListener("input", function (e) {
 }); // change detuning when using the slider
 // Wave type selection
 //need to loop through all radio buttons and add event listener to that loop
-// document.querySelectorAll('[name="radio"').addEventListener("click", (e) => {
+// const radioButtons = document.querySelectorAll('input[type="radio"]');
+// for (let i = 0; i < radioButtons.length; i++) {
+//     console.log(radioButtons[i]);
+// }
+
+var radioButtons = document.querySelectorAll('input[type=radio][name = "radio"]');
+console.log(radioButtons);
+radioButtons.forEach(function (radio) {
+  return radio.addEventListener("change", function () {
+    return oscillator.type = radio.value;
+  });
+}); // document.querySelectorAll('[name="radio"').addEventListener("click", (e) => {
 //     oscillator.type = e.target.value;
 // });
 // On and Off button
@@ -205,8 +216,7 @@ var whiteNoise = audioContext.createBufferSource();
 whiteNoise.buffer = noiseBuffer;
 whiteNoise.loop = true;
 whiteNoise.volume = 0;
-whiteNoise.start(0);
-console.log(whiteNoise); // Pink Noise
+whiteNoise.start(0); // Pink Noise
 
 var pinkBufferSize = 4096;
 
@@ -262,12 +272,10 @@ var whiteNoiseCheck = document.querySelector("input[name=whiteNoise]");
 whiteNoiseCheck.addEventListener("change", function () {
   if (this.checked) {
     // Checkbox is checked
-    whiteNoise.connect(gainNodeNoise);
-    gainNodeNoise.connect(audioContext.destination);
+    whiteNoise.connect(gainNodeNoise); // gainNodeNoise.connect(audioContext.destination);
   } else {
     // Checkbox is not checked
-    whiteNoise.disconnect(gainNodeNoise);
-    gainNodeNoise.disconnect(audioContext.destination);
+    whiteNoise.disconnect(gainNodeNoise); // gainNodeNoise.disconnect(audioContext.destination);
   }
 }); // Start Pink noise
 
@@ -275,12 +283,10 @@ var pinkNoiseCheck = document.querySelector("input[name=pinkNoise]");
 pinkNoiseCheck.addEventListener("change", function () {
   if (this.checked) {
     // Checkbox is checked
-    pinkNoise.connect(gainNodeNoise);
-    gainNodeNoise.connect(audioContext.destination);
+    pinkNoise.connect(gainNodeNoise); // gainNodeNoise.connect(audioContext.destination);
   } else {
     // Checkbox is not checked
-    pinkNoise.disconnect(gainNodeNoise);
-    gainNodeNoise.disconnect(audioContext.destination);
+    pinkNoise.disconnect(gainNodeNoise); // gainNodeNoise.disconnect(audioContext.destination);
   }
 }); // Start Brown noise
 
@@ -288,12 +294,10 @@ var brownNoiseCheck = document.querySelector("input[name=brownNoise]");
 brownNoiseCheck.addEventListener("change", function () {
   if (this.checked) {
     // Checkbox is checked
-    brownNoise.connect(gainNodeNoise);
-    gainNodeNoise.connect(audioContext.destination);
+    brownNoise.connect(gainNodeNoise); // gainNodeNoise.connect(audioContext.destination);
   } else {
     // Checkbox is not checked
-    brownNoise.disconnect(gainNodeNoise);
-    gainNodeNoise.disconnect(audioContext.destination);
+    brownNoise.disconnect(gainNodeNoise); // gainNodeNoise.disconnect(audioContext.destination);
   }
 }); // Noise Volume control
 
@@ -352,7 +356,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60824" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52848" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
