@@ -1,10 +1,10 @@
 /* Shortcut Button Styles */
 
 .shortcut {
-  display: block;
+  // display: block;
   border: 0;
   margin: 0 auto;
-  margin-bottom: var(--s-1);
+  // margin-bottom: var(--s-1);
   width: var(--s3);
   height: var(--s3);
   padding: var(--s-5) 0 var(--s-5);
@@ -21,7 +21,7 @@
   display: none;
 }
 
-@media (min-width: 60rem) {
+@media (min-width: 40rem) {
   .hide {
     display: block;
   }

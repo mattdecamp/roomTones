@@ -22,6 +22,7 @@ const gainNode = audioContext.createGain();
 gainNode.gain.value = 0;
 oscillator.connect(gainNode);
 gainNode.connect(audioContext.destination);
+
 // Connect Gain to All three types of Noise
 
 const gainNodeNoise = audioContext.createGain();
@@ -41,7 +42,6 @@ document.querySelector("#oscRange").addEventListener("input", (e) => {
 // Frequency shortcuts
 
 const shortcuts = document.getElementsByClassName("shortcut");
-console.log(shortcuts.length);
 
 const shortcutClick = function () {
     let shortcutAttr = this.getAttribute("data-freq");
@@ -53,36 +53,6 @@ const shortcutClick = function () {
 for (let i = 0; i < shortcuts.length; i++) {
     shortcuts[i].addEventListener("click", shortcutClick, false);
 }
-
-// Frequency Volume control
-
-document.querySelector("#volume").addEventListener("input", (e) => {
-    gainNode.gain.value = e.target.value * 0.01;
-});
-
-// Detune control
-
-document.querySelector("#detune").addEventListener("input", (e) => {
-    oscillator.detune.setValueAtTime(e.target.value, audioContext.currentTime);
-}); // change detuning when using the slider
-
-// Wave type selection
-//need to loop through all radio buttons and add event listener to that loop
-// const radioButtons = document.querySelectorAll('input[type="radio"]');
-// for (let i = 0; i < radioButtons.length; i++) {
-//     console.log(radioButtons[i]);
-// }
-const radioButtons = document.querySelectorAll(
-    'input[type=radio][name = "radio"]'
-);
-console.log(radioButtons);
-radioButtons.forEach((radio) =>
-    radio.addEventListener("change", () => (oscillator.type = radio.value))
-);
-
-// document.querySelectorAll('[name="radio"').addEventListener("click", (e) => {
-//     oscillator.type = e.target.value;
-// });
 
 // On and Off button
 
@@ -101,6 +71,31 @@ onOff.addEventListener("click", (e) => {
         onOff.innerHTML = "Stop";
     }
 });
+
+// Frequency Volume control
+
+document.querySelector("#volume").addEventListener("input", (e) => {
+    if (onOff.getAttribute("data-muted") === "false") {
+        gainNode.gain.value = e.target.value * 0.01;
+    } else {
+        gainNode.gain.value = 0;
+    }
+});
+
+// Detune control
+
+document.querySelector("#detune").addEventListener("input", (e) => {
+    oscillator.detune.setValueAtTime(e.target.value, audioContext.currentTime);
+}); // change detuning when using the slider
+
+// Wave radio button selection
+
+const radioButtons = document.querySelectorAll(
+    'input[type=radio][name = "radio"]'
+);
+radioButtons.forEach((radio) =>
+    radio.addEventListener("change", () => (oscillator.type = radio.value))
+);
 
 // White Noise
 
@@ -225,8 +220,7 @@ const oscHigher = document.querySelector("#oscHigher");
 const oscRange = document.querySelector("#oscRange");
 const oscValue = document.querySelector("#oscValue");
 
-oscLower.addEventListener("click", (e) => {
-    // when clicked increased the frequency level by 1
+const decreaseOsc = function () {
     if (oscillator.frequency.value >= 1) {
         oscillator.frequency.value = oscillator.frequency.value - 1;
         oscRange.value = oscRange.value - 1;
@@ -234,9 +228,10 @@ oscLower.addEventListener("click", (e) => {
     } else {
         return 1;
     }
-});
+};
+oscLower.addEventListener("mousedown", decreaseOsc);
 
-oscHigher.addEventListener("click", (e) => {
+const increaseOsc = function () {
     if (oscillator.frequency.value <= 20000) {
         oscillator.frequency.value = oscillator.frequency.value + 1;
         oscRange.value = parseInt(oscRange.value) + 1;
@@ -244,4 +239,9 @@ oscHigher.addEventListener("click", (e) => {
     } else {
         return;
     }
-});
+};
+oscHigher.addEventListener("click", increaseOsc);
+
+function clickAndHold() {
+    setTimeout(decreaseOsc, 200);
+}

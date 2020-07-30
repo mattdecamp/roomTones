@@ -96,6 +96,13 @@ body {
 label {
   font-size: 1.2rem; }
 
+.title {
+  font-size: var(--s3);
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: left;
+  text-transform: uppercase; }
+
 .heading {
   font-size: var(--s1);
   font-weight: 600;
@@ -109,11 +116,14 @@ label {
 main {
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto; }
 
 #container {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: var(--s1) 0; }
@@ -123,35 +133,55 @@ main {
   margin: 0 auto;
   display: grid;
   align-items: center;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  grid-template-areas: "play freq freq" "etc osc buttons";
-  gap: var(--s0) var(--s-2); }
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "title play" "tone-detune tone-detune" "freq freq" "shortcuts shortcuts" "noise waves";
+  gap: var(--s1) var(--s-2); }
 
 /* GRID Positioning */
+#oscTitle {
+  grid-area: title; }
+
 #onOff {
   grid-area: play; }
 
-#output--container {
+#osc--container {
   grid-area: freq;
-  justify-self: right; }
+  display: grid;
+  row-gap: var(--s-1); }
 
-#oscRange {
-  grid-area: osc; }
+#output--container {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 #freq--buttons {
-  grid-area: buttons;
+  grid-area: shortcuts;
+  margin: 0 auto; }
+
+#shortcuts--container {
   display: grid;
-  gap: 1rem; }
+  grid-template-columns: repeat(7, min-content);
+  align-content: center;
+  grid-gap: var(--s-2); }
+
+#tone-detune--container {
+  grid-area: tone-detune;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1.5rem; }
 
 #waves--container {
+  grid-area: waves;
   display: flex;
   flex-direction: column; }
 
-#etc {
-  height: 100%;
-  display: grid;
-  gap: 1rem; }
+#volume,
+#detune,
+#noiseVolume {
+  margin-top: var(--s-1); }
+
+@media (min-width: 40rem) {
+  /* GRID Poisitioning Tablet and larger */ }
 
 /* Play Button */
 .button--play {
@@ -174,77 +204,96 @@ main {
   font-size: var(--s2);
   font-weight: 600; }
 
-/* Range Slider */
-/* resets */
 input[type="range"] {
-  -webkit-appearance: none;
-  /* Hides the slider so that custom slider can be made */
   width: 100%;
-  /* Specific width is required for Firefox. */
-  background: transparent;
-  /* Otherwise white in Chrome */ }
-
-input[type="range"]::-webkit-slider-thumb {
+  background-color: transparent;
   -webkit-appearance: none; }
 
 input[type="range"]:focus {
-  outline: none;
-  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }
+  outline: none; }
 
-input[type="range"]::-ms-track {
-  width: 100%;
-  cursor: pointer;
-  /* Hides the slider so custom styles can be added */
-  background: transparent;
-  border-color: transparent;
-  color: transparent; }
-
-/* Range Thumb Styling */
-/* Special styling for WebKit/Blink */
-input[type="range"]::-webkit-slider-thumb,
-input[type="range"]::-moz-range-thumb {
-  -webkit-appearance: none;
-  height: var(--s2);
-  width: var(--s2);
-  border-radius: 50%;
+/* Webkit Styles */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--blue);
   border: none;
-  background: var(--red);
-  cursor: pointer;
-  margin-top: -14px;
-  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ }
-
-/* All the same stuff for Firefox */
-/* All the same stuff for IE */
-input[type="range"]::-ms-thumb {
-  height: var(--s2);
-  width: var(--s2);
-  border-radius: 50%;
-  background: var(--red);
+  border-radius: 25px;
+  width: 100%;
+  height: var(--s-1);
   cursor: pointer; }
 
-/* Range slider track styles */
-input[type="range"]::-webkit-slider-runnable-track,
-input[type="range"]::-moz-range-track {
-  width: 100%;
-  height: var(--s-1);
+input[type="range"]::-webkit-slider-thumb {
+  margin-top: -9px;
+  height: var(--s2);
+  width: var(--s2);
+  background: var(--red);
+  border: none;
+  border-radius: 1000px;
   cursor: pointer;
-  background: var(--blue);
-  border-radius: 10px; }
+  -webkit-appearance: none; }
 
-input[type="range"]::-ms-track {
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: var(--blue); }
+
+/* Firefox Styles */
+input[type="range"]::-moz-range-track {
+  background: var(--blue);
+  border: none;
+  border-radius: 25px;
   width: 100%;
   height: var(--s-1);
-  cursor: pointer;
+  cursor: pointer; }
+
+input[type="range"]::-moz-range-thumb {
+  height: var(--s2);
+  width: var(--s2);
+  background: var(--red);
+  border: none;
+  border-radius: 1000px;
+  cursor: pointer; }
+
+/* Edge/IE Styles */
+input[type="range"]::-ms-track {
   background: var(--blue);
-  border-radius: 10px; }
+  border: none;
+  border-radius: 25px;
+  width: 100%;
+  height: var(--s-1);
+  cursor: pointer; }
 
 input[type="range"]::-ms-fill-lower {
   background: var(--blue);
-  border-radius: 10px; }
+  border: none;
+  border-radius: 50px; }
 
 input[type="range"]::-ms-fill-upper {
   background: var(--blue);
-  border-radius: 10px; }
+  border: none;
+  border-radius: 50px; }
+
+input[type="range"]::-ms-thumb {
+  height: var(--s2);
+  width: var(--s2);
+  background: var(--red);
+  border: none;
+  border-radius: 1000px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10px;
+  /*Needed to keep the Edge thumb centred*/ }
+
+input[type="range"]:focus::-ms-fill-lower {
+  background: var(--blue); }
+
+input[type="range"]:focus::-ms-fill-upper {
+  background: var(--blue); }
+
+/*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+how to remove the virtical space around the range input in IE*/
+@supports (-ms-ime-align: auto) {
+  /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+  input[type="range"] {
+    margin: 0;
+    /*Edge starts the margin from the thumb, not the track as other browsers do*/ } }
 
 input[type="radio"] {
   -webkit-appearance: none;
@@ -318,10 +367,8 @@ input:checked + .slider:before {
 
 /* Shortcut Button Styles */
 .shortcut {
-  display: block;
   border: 0;
   margin: 0 auto;
-  margin-bottom: var(--s-1);
   width: var(--s3);
   height: var(--s3);
   padding: var(--s-5) 0 var(--s-5);
@@ -336,7 +383,7 @@ input:checked + .slider:before {
 .hide {
   display: none; }
 
-@media (min-width: 60rem) {
+@media (min-width: 40rem) {
   .hide {
     display: block; } }
 
@@ -345,42 +392,57 @@ input:checked + .slider:before {
   display: block;
   border: 0;
   margin: 0 auto;
-  width: var(--s5);
-  height: var(--s5);
+  padding: 0 2px;
+  width: var(--s4);
+  height: var(--s4);
   font-size: var(--s2);
   font-weight: 600;
-  text-transform: uppercase;
   color: var(--blue);
   background: transparent;
-  border: 5px solid var(--blue);
-  border-radius: 25px; }
-  .oscAdjust:first-of-type {
-    margin-bottom: var(--s-1); }
-
-/* Center the Slider */
-input[type="range"][orient="vertical"] {
-  margin: 0 auto; }
+  border: 4px solid var(--blue);
+  border-radius: 15px; }
 
 /* Orient the slider vertically */
-input[type="range"][orient="vertical"],
-input[type="range"][orient="vertical"]::-webkit-slider-runnable-track,
+input[type="range"] {
+  -webkit-appearance: none; }
+  input[type="range"][orient="vertical"] {
+    margin: 0 auto;
+    writing-mode: bt-lr;
+    /* IE */
+    width: var(--s0);
+    height: 100%;
+    text-align: center; }
+    input[type="range"][orient="vertical"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background: green; }
+    input[type="range"][orient="vertical"]::-webkit-slide-thumb {
+      height: var(--s3);
+      width: var(--s3);
+      background: var(--red);
+      border: none;
+      border-radius: 1000px;
+      cursor: pointer; }
+    input[type="range"][orient="vertical"]::-webkit-slider-runnable-track {
+      background: var(--blue);
+      border: none;
+      border-radius: 25px;
+      width: 100%;
+      height: 100%;
+      cursor: pointer; }
+
 input[type="range"][orient="vertical"]::-moz-range-track {
-  writing-mode: bt-lr;
-  /* IE */
-  -webkit-appearance: slider-vertical;
-  /* WebKit */
   width: var(--s0);
   height: 100%;
   text-align: center; }
 
-input[type="range"][orient="vertical"]::-webkit-slider-thumb,
 input[type="range"][orient="vertical"]::-moz-range-thumb {
   height: var(--s3);
   width: var(--s3); }
 
 input[type="range"][orient="vertical"]::-ms-thumb {
   height: var(--s3);
-  width: var(--s3); }
+  width: var(--s3);
+  margin: -10px; }
 
 
 /*# sourceMappingURL=/main.77bb5cfd.css.map */

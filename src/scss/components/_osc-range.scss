@@ -1,20 +1,55 @@
-/* Center the Slider */
-input[type="range"][orient="vertical"] {
-    margin: 0 auto;
+// #oscRange--container {
+//     transform: rotate(90deg);
+//     height: 100%;
+// }
+/* Orient the slider vertically */
+.rangeVertical {
+
+//    transform: rotate(-90deg);
+}
+input[type="range"] {
+    -webkit-appearance: none;
+    &[orient="vertical"] {
+        margin: 0 auto;
+        writing-mode: bt-lr; /* IE */
+        width: var(--s0);
+        height: 100%;
+        text-align: center;
+        // -webkit-appearance: none;
+        // -webkit-appearance: slider-vertical; /* WebKit */
+
+        &::-webkit-slider-thumb { 
+            -webkit-appearance: none;
+            background: green;
+            
+        }
+        &::-webkit-slide-thumb {
+            height: var(--s3);
+            width: var(--s3);
+            // margin: -12px;
+            background: var(--red);
+            border: none;
+            border-radius: 1000px;
+            cursor: pointer;
+            // transform: rotate(90deg);
+        }
+        &::-webkit-slider-runnable-track {
+            background: var(--blue);
+            border: none;
+            border-radius: 25px;
+            width: 100%;
+            height: 100%;
+            // transform: rotate(0deg);
+            cursor: pointer;
+        }
+    }
 }
 
-/* Orient the slider vertically */
-input[type="range"][orient="vertical"],
-input[type="range"][orient="vertical"]::-webkit-slider-runnable-track,
 input[type="range"][orient="vertical"]::-moz-range-track {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
     width: var(--s0);
     height: 100%;
     text-align: center;
 }
-
-input[type="range"][orient="vertical"]::-webkit-slider-thumb,
 input[type="range"][orient="vertical"]::-moz-range-thumb {
     height: var(--s3);
     width: var(--s3);
@@ -22,4 +57,5 @@ input[type="range"][orient="vertical"]::-moz-range-thumb {
 input[type="range"][orient="vertical"]::-ms-thumb {
     height: var(--s3);
     width: var(--s3);
+    margin: -10px;
 }

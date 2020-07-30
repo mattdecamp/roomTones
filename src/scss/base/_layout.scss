@@ -1,14 +1,17 @@
 main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 #container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--s1) 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--s1) 0;
 }
 
 #oscillator {
@@ -16,48 +19,131 @@ main {
     margin: 0 auto;
     display: grid;
     align-items: center;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "play freq freq"
-      "etc osc buttons";
-    gap: var(--s0) var(--s-2);
+        "title play"
+        "tone-detune tone-detune"
+        "freq freq"
+        "shortcuts shortcuts"
+        "noise waves";
+    gap: var(--s1) var(--s-2);
 }
 
 /* GRID Positioning */
 
+#oscTitle {
+    grid-area: title;
+}
+
 #onOff {
-  grid-area: play;
+    grid-area: play;
+}
+
+#osc--container {
+    grid-area: freq;
+    display: grid;
+    row-gap: var(--s-1);
 }
 
 #output--container {
-  grid-area: freq;
-  justify-self: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#oscRange {
-  grid-area: osc;
-}
 
 #freq--buttons {
-  grid-area: buttons;
-  display: grid;
-  gap: 1rem;
+    grid-area: shortcuts;
+    margin: 0 auto;
 }
 
-// #shortcuts--container {
-//   display: flex;
-//   justify-content: center;
-// }
+#shortcuts--container {
+  display: grid;
+  grid-template-columns: repeat(7,min-content);
+  align-content: center;
+  grid-gap: var(--s-2);
+}
 
+#tone-detune--container {
+    grid-area: tone-detune;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+}
 
 #waves--container {
-  display: flex;
-  flex-direction: column;
+    grid-area: waves;
+    display: flex;
+    flex-direction: column;
+    // margin-bottom: var(--s1);
 }
 
-#etc {
-  height: 100%;
-  display: grid;
-  gap: 1rem;
+#volume,
+#detune,
+#noiseVolume {
+    margin-top: var(--s-1);
+}
+
+@media (min-width: 40rem) {
+    /* GRID Poisitioning Tablet and larger */
+    // #container {
+    //   width: 90%;
+    //   max-width: 1200px;
+    //   margin: 0 auto;
+
+    // }
+    // #oscillator {
+    //     width: 100%;
+    //     max-width: 1200px;
+    //     margin: 0 auto;
+    //     grid-template-columns: repeat(3, auto);
+    //     grid-template-rows: repeat(5, auto);
+    //     grid-template-areas:
+    //         "play detune tonelevel"
+    //         "osc osc osc"
+    //         "oscLow output oscHigh"
+    //         "buttons buttons buttons"
+    //         "waves noise noiselevel";
+    //     gap: var(--s0) var(--s-2);
+    // }
+    // #onOff {
+    //     grid-area: play;
+    // }
+    // #output--container {
+    //     grid-area: output;
+    // }
+    // #oscRange {
+    //     grid-area: osc;
+    // }
+    // #freq--buttons {
+    //     // grid-area: buttons;
+    //     display: block;
+    //     & #shortcuts--container {
+    //         display: flex;
+    //         flex-direction: row;
+    //         flex-wrap: nowrap;
+    //         justify-content: space-between;
+    //     }
+    // }
+    // #oscHigher {
+    //     grid-area: oscHigh;
+    // }
+    // #oscLower {
+    //     grid-area: oscLow;
+    // }
+    // #toneVolume--container {
+    //     grid-area: tonelevel;
+    // }
+    // #detune--container {
+    //     grid-area: detune;
+    // }
+    // #waves--container {
+    //     grid-area: waves;
+    // }
+    // #noise--container {
+    //     grid-area: noise;
+    // }
+    // #noise-level--container {
+    //     grid-area: noiselevel;
+    // }
 }

@@ -9,6 +9,14 @@ label{
   font-size: 1.2rem;
 }
 
+.title {
+  font-size: var(--s3);
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: left;
+  text-transform: uppercase;
+}
+
 .heading {
   font-size: var(--s1);
   font-weight: 600;
@@ -21,3 +29,4 @@ label{
   font-size: 1.2rem;
   padding-inline-start: 1rem;
 }
+

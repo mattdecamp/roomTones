@@ -150,7 +150,6 @@ document.querySelector("#oscRange").addEventListener("input", function (e) {
 }); // Frequency shortcuts
 
 var shortcuts = document.getElementsByClassName("shortcut");
-console.log(shortcuts.length);
 
 var shortcutClick = function shortcutClick() {
   var shortcutAttr = this.getAttribute("data-freq");
@@ -161,33 +160,8 @@ var shortcutClick = function shortcutClick() {
 
 for (var i = 0; i < shortcuts.length; i++) {
   shortcuts[i].addEventListener("click", shortcutClick, false);
-} // Frequency Volume control
+} // On and Off button
 
-
-document.querySelector("#volume").addEventListener("input", function (e) {
-  gainNode.gain.value = e.target.value * 0.01;
-}); // Detune control
-
-document.querySelector("#detune").addEventListener("input", function (e) {
-  oscillator.detune.setValueAtTime(e.target.value, audioContext.currentTime);
-}); // change detuning when using the slider
-// Wave type selection
-//need to loop through all radio buttons and add event listener to that loop
-// const radioButtons = document.querySelectorAll('input[type="radio"]');
-// for (let i = 0; i < radioButtons.length; i++) {
-//     console.log(radioButtons[i]);
-// }
-
-var radioButtons = document.querySelectorAll('input[type=radio][name = "radio"]');
-console.log(radioButtons);
-radioButtons.forEach(function (radio) {
-  return radio.addEventListener("change", function () {
-    return oscillator.type = radio.value;
-  });
-}); // document.querySelectorAll('[name="radio"').addEventListener("click", (e) => {
-//     oscillator.type = e.target.value;
-// });
-// On and Off button
 
 var onOff = document.querySelector("#onOff");
 onOff.addEventListener("click", function (e) {
@@ -202,6 +176,26 @@ onOff.addEventListener("click", function (e) {
     onOff.setAttribute("data-muted", "false");
     onOff.innerHTML = "Stop";
   }
+}); // Frequency Volume control
+
+document.querySelector("#volume").addEventListener("input", function (e) {
+  if (onOff.getAttribute("data-muted") === "false") {
+    gainNode.gain.value = e.target.value * 0.01;
+  } else {
+    gainNode.gain.value = 0;
+  }
+}); // Detune control
+
+document.querySelector("#detune").addEventListener("input", function (e) {
+  oscillator.detune.setValueAtTime(e.target.value, audioContext.currentTime);
+}); // change detuning when using the slider
+// Wave radio button selection
+
+var radioButtons = document.querySelectorAll('input[type=radio][name = "radio"]');
+radioButtons.forEach(function (radio) {
+  return radio.addEventListener("change", function () {
+    return oscillator.type = radio.value;
+  });
 }); // White Noise
 
 var whiteBufferSize = 2 * audioContext.sampleRate,
@@ -309,8 +303,8 @@ var oscLower = document.querySelector("#oscLower");
 var oscHigher = document.querySelector("#oscHigher");
 var oscRange = document.querySelector("#oscRange");
 var oscValue = document.querySelector("#oscValue");
-oscLower.addEventListener("click", function (e) {
-  // when clicked increased the frequency level by 1
+
+var decreaseOsc = function decreaseOsc() {
   if (oscillator.frequency.value >= 1) {
     oscillator.frequency.value = oscillator.frequency.value - 1;
     oscRange.value = oscRange.value - 1;
@@ -318,8 +312,11 @@ oscLower.addEventListener("click", function (e) {
   } else {
     return 1;
   }
-});
-oscHigher.addEventListener("click", function (e) {
+};
+
+oscLower.addEventListener("mousedown", decreaseOsc);
+
+var increaseOsc = function increaseOsc() {
   if (oscillator.frequency.value <= 20000) {
     oscillator.frequency.value = oscillator.frequency.value + 1;
     oscRange.value = parseInt(oscRange.value) + 1;
@@ -327,7 +324,13 @@ oscHigher.addEventListener("click", function (e) {
   } else {
     return;
   }
-});
+};
+
+oscHigher.addEventListener("click", increaseOsc);
+
+function clickAndHold() {
+  setTimeout(decreaseOsc, 200);
+}
 },{}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -356,7 +359,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52848" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53622" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
