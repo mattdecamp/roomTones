@@ -1,274 +1,301 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-    <!--<![endif]-->
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title></title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/scss/main.scss" />
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">
-                You are using an <strong>outdated</strong> browser. Please
-                <a href="#">upgrade your browser</a> to improve your experience.
-            </p>
-        <![endif]-->
-        <main>
-            <article id="container">
-                <form id="oscillator" name="oscillator">
-                    <h1 id="oscTitle" class="title">Room Tones</h1>
-                    <button
-                        type="button"
-                        id="onOff"
-                        class="button--play"
-                        data-muted="true"
+---
+title: 'Room Tones'
+layout: 'layouts/base.html'
+permalink: '/'
+---
+<article id="container">
+    <form id="oscillator" name="oscillator" aria-labelledby="oscTitle">
+        <h1 id="oscTitle" class="title">Room Tones</h1>
+        <button
+            type="button"
+            id="onOff"
+            class="button--play"
+            data-muted="true"
+            aria-label="Play or Stop"
+        >
+            Play
+        </button>
+
+        <div id="tone--container">
+            <span class="heading" id="toneLevel">Tone Level</span>
+            <input
+                id="volume"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                aria-labelledby="toneLevel"
+            />
+        </div>
+        <div id="detune--container">
+            <label for="detune" id="detuneLabel" class="heading">Detune</label>
+            <input
+                id="detune"
+                type="range"
+                min="-100"
+                max="100"
+                value="0"
+                aria-labelledby="detuneLabel"
+            />
+        </div>
+
+        <div id="osc--container">
+            <div id="output--container">
+                <button
+                    type="button"
+                    id="oscLower"
+                    class="oscAdjust"
+                    aria-label="Decrease Oscillator"
+                >
+                    &larr;
+                </button>
+                <div id="oscOutput--container">
+                    <output
+                        for="oscRange"
+                        name="oscValue"
+                        id="oscValue"
+                        aria-label="Oscillator Value"
+                        >&nbsp;</output
                     >
-                        Play
-                    </button>
-                    <div id="tone-detune--container">
-                        <div id="toneVolume--container">
-                            <span class="heading">Tone Level</span>
-                            <input
-                                id="volume"
-                                type="range"
-                                min="0"
-                                max="100"
-                                value="0"
-                            />
-                        </div>
-                        <div id="detune--container">
-                            <label for="detune" id="detuneLabel" class="heading"
-                                >detune</label
-                            >
-                            <input
-                                id="detune"
-                                type="range"
-                                min="-100"
-                                max="100"
-                                value="0"
-                            />
-                        </div>
-                    </div>
-                    <div id="osc--container">
-                        <div id="output--container">
-                            <button type="button" id="oscLower" class="oscAdjust">
-                                &larr;
-                            </button>
-                            <div id="oscOutput--container">
-                                <output for="oscRange" name="oscValue" id="oscValue"
-                                    >&nbsp;</output
-                                >
-                                <label for="oscValue" id="valLabel">Hz</label>
-                            </div>
-                            <button type="button" id="oscHigher" class="oscAdjust">
-                                &rarr;
-                            </button>
-                        </div>
-                        
-                        <input
-                            type="range"
-                            id="oscRange"
-                            name="oscRange"
-                            min="1"
-                            max="20000"
-                            value="440"
-                            step="1"
-                            oninput="oscValue.value = oscRange.value"
-                        />
-                    </div>
-                    <div id="freq--buttons">
-                        <div id="shortcuts--container">
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="30"
-                            >
-                                30
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="60"
-                            >
-                                60
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="150"
-                            >
-                                150
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="350"
-                            >
-                                350
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="500"
-                            >
-                                500
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="800"
-                            >
-                                800
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="1000"
-                            >
-                                1k
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="2000"
-                            >
-                                2k
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="4000"
-                            >
-                                4k
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="6000"
-                            >
-                                6k
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="8000"
-                            >
-                                8k
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="10000"
-                            >
-                                10k
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="12000"
-                            >
-                                12k
-                            </button>
-                            <button
-                                class="shortcut"
-                                type="button"
-                                data-freq="16000"
-                            >
-                                16k
-                            </button>
-                        </div>
-                    </div>
-                    <div id="waves--container">
-                        <label class="heading">Wave</label>
-                        <div class="radio-button--container">
-                            <input
-                                type="radio"
-                                value="sine"
-                                name="radio"
-                                checked="checked"
-                            />
-                            <label for="radio" class="radio-name">Sine</label>
-                        </div>
-                        <div class="radio-button--container">
-                            <input type="radio" value="triangle" name="radio" />
-                            <label for="radio" class="radio-name"
-                                >Triangle</label
-                            >
-                        </div>
-                        <div class="radio-button--container">
-                            <input type="radio" value="square" name="radio" />
-                            <label for="radio" class="radio-name">Square</label>
-                        </div>
-                        <div class="radio-button--container">
-                            <input type="radio" value="sawtooth" name="radio" />
-                            <label for="radio" class="radio-name"
-                                >Sawtooth</label
-                            >
-                        </div>
-                    </div>
-                    <div id="noise--container">
-                        <label for="noise" id="waveLabel" class="heading"
-                            >NOISE</label
-                        >
-                        <div class="noise-item--container">
-                            <label class="switch">
-                                <input
-                                    type="checkbox"
-                                    name="whiteNoise"
-                                    id="whiteNoise"
-                                />
-                                <span class="slider"></span>
-                            </label>
-                            <span class="label-name">White</span>
-                        </div>
-                        <div class="noise-item--container">
-                            <label class="switch">
-                                <input
-                                    type="checkbox"
-                                    name="pinkNoise"
-                                    id="pinkNoise"
-                                />
-                                <span class="slider"></span>
-                            </label>
-                            <span class="label-name">Pink</span>
-                        </div>
-                        <div class="noise-item--container">
-                            <label class="switch">
-                                <input
-                                    type="checkbox"
-                                    name="brownNoise"
-                                    id="brownNoise"
-                                />
-                                <span class="slider"></span>
-                            </label>
-                            <span class="label-name">Brown</span>
-                        </div>
-                    </div>
-                    <div id="noise-level--container">
-                        <label
-                            for="noiseVolume"
-                            id="noiseVolumeLabel"
-                            class="heading"
-                            >NOISE LEVEL</label
-                        >
-                        <input
-                            id="noiseVolume"
-                            type="range"
-                            min="0"
-                            max="100"
-                            value="0"
-                        />
-                    </div>
-                </form>
-            </article>
-        </main>
-        <script src="./js/app.js" async defer></script>
-    </body>
-</html>
+                    <label for="oscValue" id="valLabel">Hz</label>
+                </div>
+                <button
+                    type="button"
+                    id="oscHigher"
+                    class="oscAdjust"
+                    aria-labe="Increase Oscillator"
+                >
+                    &rarr;
+                </button>
+            </div>
+
+            <input
+                type="range"
+                id="oscRange"
+                name="oscRange"
+                min="1"
+                max="20000"
+                value="1000"
+                step="1"
+                oninput="oscValue.value = oscRange.value"
+                aria-label="Oscillator Range"
+            />
+        </div>
+        <div id="freq--buttons">
+            <div id="shortcuts--container">
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="30"
+                    aria-label="30 Hz"
+                >
+                    30
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="60"
+                    aria-label="60 Hz"
+                >
+                    60
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="150"
+                    aria-label="150 Hz"
+                >
+                    150
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="350"
+                    aria-label="350 Hz"
+                >
+                    350
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="500"
+                    aria-label="500 Hz"
+                >
+                    500
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="800"
+                    aria-label="800 Hz"
+                >
+                    800
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="1000"
+                    aria-label="1 kHz"
+                >
+                    1k
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="2000"
+                    aria-label="2 kHz"
+                >
+                    2k
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="4000"
+                    aria-label="4 kHz"
+                >
+                    4k
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="6000"
+                    aria-label="6 kHz"
+                >
+                    6k
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="8000"
+                    aria-label="8 kHz"
+                >
+                    8k
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="10000"
+                    aria-label="10 kHz"
+                >
+                    10k
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="12000"
+                    aria-label="12 kHz"
+                >
+                    12k
+                </button>
+                <button
+                    class="shortcut"
+                    type="button"
+                    data-freq="16000"
+                    aria-label="16 kHz"
+                >
+                    16k
+                </button>
+            </div>
+        </div>
+        <div id="waves--container">
+            <label class="heading">Wave</label>
+            <div class="radio-button--container">
+                <input
+                    type="radio"
+                    value="sine"
+                    name="radio"
+                    checked="checked"
+                    aria-labelledby="sineLabel"
+                />
+                <label id="sineLabel" for="radio" class="radio-name"
+                    >Sine</label
+                >
+            </div>
+            <div class="radio-button--container">
+                <input
+                    type="radio"
+                    value="triangle"
+                    name="radio"
+                    aria-labelledby="triangleLabel"
+                />
+                <label id="triangleLabel" for="radio" class="radio-name"
+                    >Triangle</label
+                >
+            </div>
+            <div class="radio-button--container">
+                <input
+                    type="radio"
+                    value="square"
+                    name="radio"
+                    aria-labelledby="squareLabel"
+                />
+                <label id="squareLabel" for="radio" class="radio-name"
+                    >Square</label
+                >
+            </div>
+            <div class="radio-button--container">
+                <input
+                    type="radio"
+                    value="sawtooth"
+                    name="radio"
+                    aria-labelledby="sawtoothLabel"
+                />
+                <label id="sawtoothLabel" for="radio" class="radio-name"
+                    >Sawtooth</label
+                >
+            </div>
+        </div>
+        <div id="noise--container">
+            <label for="noise" id="waveLabel" class="heading">Noise</label>
+            <div class="noise-item--container">
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        name="whiteNoise"
+                        id="whiteNoise"
+                        aria-labelledby="whiteNoiseLabel"
+                    />
+                    <span class="slider"></span>
+                </label>
+                <span id="whiteNoiseLabel" class="label-name">White</span>
+            </div>
+            <div class="noise-item--container">
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        name="pinkNoise"
+                        id="pinkNoise"
+                        aria-labelledby="pinkNoiseLabel"
+                    />
+                    <span class="slider"></span>
+                </label>
+                <span id="pinkNoiseLabel" class="label-name">Pink</span>
+            </div>
+            <div class="noise-item--container">
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        name="brownNoise"
+                        id="brownNoise"
+                        aria-labelledby="brownNoiseLabel"
+                    />
+                    <span class="slider"></span>
+                </label>
+                <span id="brownNoiseLabel" class="label-name">Brown</span>
+            </div>
+        </div>
+        <div id="noise-level--container">
+            <label for="noiseVolume" id="noiseVolumeLabel" class="heading"
+                >Noise Level</label
+            >
+            <input
+                id="noiseVolume"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                aria-labelledby="noiseVolumeLabel"
+            />
+        </div>
+    </form>
+</article>

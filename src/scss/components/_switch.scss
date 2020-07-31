@@ -1,6 +1,5 @@
 .noise-item--container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: block;
     margin-top: var(--s0);
     &:last-of-type {
         margin-bottom: var(--s0);
@@ -12,6 +11,7 @@
     display: inline-block;
     width: var(--s4);
     height: var(--s2);
+    
 
     & input {
         opacity: 0;

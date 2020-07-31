@@ -138,9 +138,6 @@ input[type="range"] {
     background-color: transparent;
     -webkit-appearance: none;
 }
-input[type="range"]:focus {
-    outline: none;
-}
 
 /* Webkit Styles */
 input[type="range"]::-webkit-slider-runnable-track {
