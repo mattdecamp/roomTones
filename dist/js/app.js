@@ -5,6 +5,28 @@ window.onload = function () {
     document.getElementById("oscRange").value = 1000;
 };
 
+// On and Off button
+
+const onOff = document.querySelector("#onOff");
+// onOff.addEventListener("click", oscInit);
+// function oscInit() {
+
+// }
+onOff.addEventListener("click", (e) => {
+    if (onOff.getAttribute("data-muted") === "false") {
+        gainNode.disconnect(audioContext.destination);
+        gainNodeNoise.disconnect(audioContext.destination);
+        onOff.setAttribute("data-muted", "true");
+        onOff.innerHTML = "Play";
+    } else {
+        audioContext.resume();
+        gainNode.connect(audioContext.destination);
+        gainNodeNoise.connect(audioContext.destination);
+        onOff.setAttribute("data-muted", "false");
+        onOff.innerHTML = "Stop";
+    }
+});
+
 // Initialize audio
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -54,23 +76,7 @@ for (let i = 0; i < shortcuts.length; i++) {
     shortcuts[i].addEventListener("click", shortcutClick, false);
 }
 
-// On and Off button
 
-const onOff = document.querySelector("#onOff");
-
-onOff.addEventListener("click", (e) => {
-    if (onOff.getAttribute("data-muted") === "false") {
-        gainNode.disconnect(audioContext.destination);
-        gainNodeNoise.disconnect(audioContext.destination);
-        onOff.setAttribute("data-muted", "true");
-        onOff.innerHTML = "Play";
-    } else {
-        gainNode.connect(audioContext.destination);
-        gainNodeNoise.connect(audioContext.destination);
-        onOff.setAttribute("data-muted", "false");
-        onOff.innerHTML = "Stop";
-    }
-});
 
 // Frequency Volume control
 
