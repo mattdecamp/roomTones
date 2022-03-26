@@ -6,9 +6,13 @@
   "scripts": {
     "autoprefixer": "postcss -u autoprefixer -r dist/css/*",
     "scss": "node-sass --output-style compressed -o dist/css src/scss",
+    "uglify": "uglifyjs 'src/js/lib/app.js' -c -o 'src/js/app.min.js'",
+    "babel": "./node_modules/.bin/babel 'src/js/app.js' --out-dir 'src/js/lib/'",
+    "eleventy": "npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve",
     "watch": "onchange 'src/scss' -- npm run scss",
-    "start": "run-p serve watch"
+    "start": "run-p serve watch",
+    "build": "run-p eleventy scss"
   },
   "repository": {
     "type": "git",
@@ -29,11 +33,15 @@
   },
   "homepage": "https://github.com/mattdecamp/roomTones#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy": "^1.0.0",
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
     "autoprefixer": "^10.3.1",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.1",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
-    "postcss-cli": "^8.3.1"
+    "postcss-cli": "^8.3.1",
+    "uglify-js": "^3.15.3"
   }
 }
