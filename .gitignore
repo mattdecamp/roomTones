@@ -2,3 +2,4 @@ node_modules
 .cache
 extras
 .DS_Store
+dist
