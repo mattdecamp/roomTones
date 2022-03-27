@@ -2,5 +2,5 @@
   "name": "Audio Oscillator & Tone Generator",
   "url": "https://oscitones.decamp.dev", 
   "description": "An app to assist recording engineers and audio professionals.",
-  "image": "./images/roomTonesIcon.jpg"
+  "image": "images/roomTonesIcon.jpg"
 }
