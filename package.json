@@ -4,15 +4,14 @@
   "description": "An application to assist recording engineers and audio professionals.",
   "main": "app.js",
   "scripts": {
-    "autoprefixer": "postcss -u autoprefixer -r dist/css/*",
-    "scss": "node-sass --output-style compressed -o dist/css src/scss",
+    "eleventy:serve": "cross-env ELEVENTY_ENV=development eleventy --serve --quiet",
+    "eleventy:build": "cross-env ELEVENTY_ENV=production eleventy",
+    "sass:watch": "sass src/scss/:src/_includes/ --watch --color",
+    "sass:build": "sass src/scss/:src/_includes/ --no-source-map --style=compressed",
     "uglify": "uglifyjs 'src/js/lib/app.js' -c -o 'src/js/app.min.js'",
     "babel": "./node_modules/.bin/babel 'src/js/app.js' --out-dir 'src/js/lib/'",
-    "eleventy": "npx @11ty/eleventy",
-    "serve": "npx @11ty/eleventy --serve",
-    "watch": "onchange 'src/scss' -- npm run scss",
-    "start": "run-p serve watch",
-    "build": "run-p eleventy scss"
+    "dev": "run-p -l sass:build sass:watch eleventy:serve",
+    "build": "run-s -l eleventy:build sass:build"
   },
   "repository": {
     "type": "git",
@@ -26,22 +25,28 @@
     "room",
     "testing"
   ],
-  "author": "Matt DeCamp",
+  "author": {
+    "name": "Matt DeCamp",
+    "url": "https://mattdecamp.com",
+    "email": "matt@mattdecamp.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mattdecamp/roomTones/issues"
   },
   "homepage": "https://github.com/mattdecamp/roomTones#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.0",
+    "@11ty/eleventy": "^2.0.1",
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "autoprefixer": "^10.3.1",
-    "node-sass": "^7.0.1",
+    "clean-css": "^5.3.2",
+    "cross-env": "^7.0.3",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
     "postcss-cli": "^8.3.1",
+    "sass": "^1.63.2",
     "uglify-js": "^3.15.3"
   }
 }

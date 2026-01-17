@@ -1,0 +1,10 @@
+<head>
+    <title>{{ site.name }}</title>
+    {% include "partials/meta.njk" %}
+    {% set css %}
+        {% include "main.css" | url %}
+    {% endset %}
+    <style>
+        {{ css | cssmin | safe }}
+    </style>
+</head>
