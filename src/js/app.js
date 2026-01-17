@@ -1,12 +1,23 @@
-// On load resets
+/**
+ * 
+ * Audio Oscillator
+ * @author Matt DeCamp <matt@mattdecamp.com>
+ * 
+ */
 
+/**
+ * Window reload reset
+ * @description Resets the value and range values on page load.
+ */
 window.onload = function () {
   document.getElementById('oscValue').value = '1000'
   document.getElementById('oscRange').value = 1000
 }
 
-// On and Off button
-
+/**
+ * On/Off Button
+ * @description Toggle for the application's audio
+ */
 const onOff = document.querySelector('#onOff')
 
 onOff.addEventListener('click', (e) => {
@@ -24,42 +35,49 @@ onOff.addEventListener('click', (e) => {
   }
 })
 
-// Initialize audio
-
+/**
+ * @description Initialize audio
+ */
 const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 
-// Create oscillator
-
+/**
+ * @description Create Oscillator
+ */
 const oscillator = audioContext.createOscillator()
 oscillator.type = 'sine'
 oscillator.frequency.value = 1000 // value in hertz
 oscillator.detune.setValueAtTime(0, audioContext.currentTime) // value in cents
 
-// Connect Gain to Oscillator
-
+/**
+ * @description Connect Gain to Oscillator
+ */
 const gainNode = audioContext.createGain()
 gainNode.gain.value = 0
 oscillator.connect(gainNode)
 gainNode.connect(audioContext.destination)
 
-// Connect Gain to All three types of Noise
-
+/**
+ * @description Connect Gain to All three types of Noise
+ */
 const gainNodeNoise = audioContext.createGain()
 gainNodeNoise.gain.value = 0
 gainNodeNoise.connect(audioContext.destination)
 
-// Start oscillator
-
+/**
+ * Start oscillator
+ */
 oscillator.start()
 
-// Frequency control
-
+/**
+ * Frequency control
+ */
 document.querySelector('#oscRange').addEventListener('input', (e) => {
   oscillator.frequency.value = e.target.value
 })
 
-// Frequency shortcuts
-
+/**
+ * Frequency shortcut buttons
+ */
 const shortcuts = document.getElementsByClassName('shortcut')
 
 const shortcutClick = function () {
@@ -73,8 +91,9 @@ for (let i = 0; i < shortcuts.length; i++) {
   shortcuts[i].addEventListener('click', shortcutClick, false)
 }
 
-// Frequency Volume control
-
+/**
+ * Frequency Volume control
+ */
 document.querySelector('#volume').addEventListener('input', (e) => {
   if (onOff.getAttribute('data-muted') === 'false') {
     gainNode.gain.value = e.target.value * 0.01
@@ -83,14 +102,16 @@ document.querySelector('#volume').addEventListener('input', (e) => {
   }
 })
 
-// Detune control
-
+/**
+ * Detune control
+ */
 document.querySelector('#detune').addEventListener('input', (e) => {
   oscillator.detune.setValueAtTime(e.target.value, audioContext.currentTime)
 }) // change detuning when using the slider
 
-// Wave radio button selection
-
+/**
+ * Wave radio button selection
+ */
 const radioButtons = document.querySelectorAll(
   'input[type=radio][name = "radio"]'
 )
@@ -98,8 +119,9 @@ radioButtons.forEach((radio) =>
   radio.addEventListener('change', () => (oscillator.type = radio.value))
 )
 
-// White Noise
-
+/**
+ * White Noise
+ */
 const whiteBufferSize = 2 * audioContext.sampleRate,
   noiseBuffer = audioContext.createBuffer(
     1,
@@ -117,8 +139,9 @@ whiteNoise.loop = true
 whiteNoise.volume = 0
 whiteNoise.start(0)
 
-// Pink Noise
-
+/**
+ * Pink Noise
+ */
 const pinkBufferSize = 4096
 const pinkNoise = (function () {
   let b0, b1, b2, b3, b4, b5, b6
@@ -142,8 +165,9 @@ const pinkNoise = (function () {
   return node
 })()
 
-// Brown Noise
-
+/**
+ * Brown Noise
+ */
 const brownBufferSize = 4096
 const brownNoise = (function () {
   let lastOut = 0.0
@@ -160,8 +184,9 @@ const brownNoise = (function () {
   return node
 })()
 
-// Start White noise
-
+/**
+ * Start White noise
+ */
 const whiteNoiseCheck = document.querySelector('input[name=whiteNoise]')
 
 whiteNoiseCheck.addEventListener('change', function () {
@@ -176,8 +201,9 @@ whiteNoiseCheck.addEventListener('change', function () {
   }
 })
 
-// Start Pink noise
-
+/**
+ * Start Pink noise
+ */
 const pinkNoiseCheck = document.querySelector('input[name=pinkNoise]')
 
 pinkNoiseCheck.addEventListener('change', function () {
@@ -192,7 +218,9 @@ pinkNoiseCheck.addEventListener('change', function () {
   }
 })
 
-// Start Brown noise
+/**
+ * Start Brown noise
+ */
 
 const brownNoiseCheck = document.querySelector('input[name=brownNoise]')
 
@@ -208,14 +236,16 @@ brownNoiseCheck.addEventListener('change', function () {
   }
 })
 
-// Noise Volume control
-
+/**
+ * Noise Volume control
+ */
 document.querySelector('#noiseVolume').addEventListener('input', (e) => {
   gainNodeNoise.gain.value = e.target.value * 0.01
 })
 
-// Frequency button adjustment function
-
+/**
+ * Frequency button adjustment function
+ */
 const oscLower = document.querySelector('#oscLower')
 const oscHigher = document.querySelector('#oscHigher')
 const oscRange = document.querySelector('#oscRange')
